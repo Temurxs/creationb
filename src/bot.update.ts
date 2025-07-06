@@ -7,8 +7,6 @@ import { User } from "./user/user.entity";
 import { UserService } from "./user/user.service";
 
 
-const users: Record<number, string> = {}; // userId -> name
-
 @Update()
 export class BotUpdate{
     constructor(private readonly httpService: HttpService,
@@ -64,8 +62,12 @@ export class BotUpdate{
           const results = response.data.results?.slice(0, 3);
     
           if (results && results.length > 0) {
-            const userId = ctx.from?.id;
-            const name = userId !== undefined ? users[userId] || 'there' : 'there';
+            const tgUser = ctx.from;
+            if (!tgUser) {
+              await ctx.reply('Error: Unable to retrieve user information.');
+              return;
+            }
+            const name = tgUser.first_name || 'User';
             await ctx.reply(`🔍 Ok ${name}, searching for "${query}"...`);
             const message = results
               .map((r) => `${r.original_title} \n ${r.overview} (${r.popularity})`)
