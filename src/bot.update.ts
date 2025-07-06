@@ -56,7 +56,7 @@ export class BotUpdate{
         try {
           const response = await firstValueFrom(this.httpService.get(url, {
             headers: {
-              Authorization: `Bearer ${token}`,
+              Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0ZDg2ZDU3ZDc3NmZlNzRiMzE3MjNmNGZlZGIzZDhkYiIsIm5iZiI6MTc1MTcxNDY3My4zNiwic3ViIjoiNjg2OTBiNzEyZTMxNzY5Y2ZlNTFkNTdhIiwic2NvcGVzIjpbImFwaV9yZWFkIl0sInZlcnNpb24iOjF9.DI5K_ktQxo-TfpbCx_GxAx1YcY-r9Wdliblz7pOnPi4`,
             },
           }));
           const results = response.data.results?.slice(0, 3);
